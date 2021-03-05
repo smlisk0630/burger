@@ -1,7 +1,8 @@
 const express = require('express');
-const mysql = require('mysql');
 const exphbs = require('express-handlebars');
+const orm = require('/.config/orm');
 
+// Create express app instance
 const app = express();
 
 // Set the port of our application
@@ -18,20 +19,12 @@ app.use(express.json());
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: '12345678',
-  database: 'burgers_db',
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error(`error connecting: ${err.stack}`);
-    return;
-  }
-  console.log(`connected as id ${connection.threadId}`);
+//Routes
+app.get('/', (req, res) => {
+    orm.selectAll('burger', function(result) {
+        res.render('list', { burger: result });
+    });
+    
 });
 
 // Start our server so that it can begin listening to client requests.
