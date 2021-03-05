@@ -9,6 +9,24 @@ const orm = {
                 callback(result);
             }    
         });
+    },
+    insertOne(tableName, columnName, columnValues, callback) {
+        connection.query('INSERT INTO * SET ?', [tableName, columnName, columnValues], (err, result) => {
+            if (err) throw err;
+
+            if (typeof callback === 'function') {
+                callback(result);
+            }  
+        });
+    },
+    updateOne(tableName, columnName, columnValues, callback) {
+        connection.query('UPDATE * SET ??', [tableName, columnName, columnValues], (err, result) => {
+            if (err) throw err;
+
+            if (typeof callback === 'function') {
+                callback(result);
+            }  
+        });
     }
 };
 

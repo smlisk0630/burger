@@ -24,7 +24,18 @@ app.get('/', (req, res) => {
     orm.selectAll('burger', function(result) {
         res.render('list', { burger: result });
     });
-    
+});
+
+app.post('/', (req, res) => {
+  orm.insertOne('burger', function(result) {
+      res.render('list', { burger: result });
+  });
+});
+
+app.put('/', (req, res) => {
+  orm.updateOne('burger', function(result) {
+      res.render('list', { burger: result });
+  });
 });
 
 // Start our server so that it can begin listening to client requests.
