@@ -1,19 +1,38 @@
-#body {
+#body, #header {
     background-color: #FED654;
 }
-
-ol {
-    border: 2px solid red;
-    background-color: red;
-    color: white;
+.eat {
+    color: red;
+}
+.devour {
+    text-align: center;
     font-size: 30px;
+    color: green;
+}
+
+ul { 
+    list-style: none;
+}
+
+li {
+    text-align: center;
+    font-size: 20px;
     padding-left: 10px;
     padding-top: 10;
     margin-right: 10px;
     margin-top: 10px;
 }
 
-.submit-btn {
+.submit-btn, .devour-btn, .submit-btn:hover, .devour-btn:hover  {
+    margin: 0 auto;
+    display: block;
     background-color: blue;
+    color: white;
+}
+
+.submit-btn:active, .devour-btn:active {
+    margin: 0 auto;
+    display: block;
+    background-color: red;
     color: white;
 }

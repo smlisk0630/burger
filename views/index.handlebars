@@ -1,9 +1,13 @@
 <section class="container-fluid" id="body">
     <section class="row justify-content-center">
         <img src="../assets/burger.png" alt="Burger" width="250">
+    </section>
+    <section class="row justify-content-center">
         <section class="jumbotron jumbotron-fluid text-center" id="header">
-            <h1>Eat-Da-Burgers!</h1>
+            <h1 class="eat">Eat-Da-Burgers!</h1>
         </section>
+    </section>
+    <section class="row justify-content-center">
         <form id="create-form">
             <section class="form-group">
                 <label for="burger">Burger Name:</label>
@@ -11,13 +15,14 @@
             </section>
             <button type="submit" class="btn submit-btn">Submit</button>
             <p>Enter a burger you want to eat. Click the "Submit" button.</p>
+        </form>
     </section>
 
     <section class="container-fluid">
-        <section class="row">
+        <section class="row justify-content-center">
             <section class="col-5 ml-5">
-                <section class="card mb-3">
-                    <label for="devoured">Devoured?</label><br>
+                <section class="card mb-3 justify-content-center">
+                    <label class="devour" for="devoured">Devoured?</label><br>
                     <ul class="list-group card-body p1-3" name="devoured" id="devoured">
                         {{#each burger}}
                         {{#unless devoured}}
@@ -27,9 +32,9 @@
                     </ul>
                 </section>
             </section>
-            <section class="col-5 ml-3">
+            <section class="col-5 ml-5">
                 <section class="card mb-3">
-                    <label for="devoured">Devoured!</label><br>
+                    <label class="devour" for="devoured">Devoured!</label><br>
                     <ul class="list-group card-body p1-3" name="devoured" id="not-devoured">
                         {{#each burger}}
                         {{#if devoured}}
@@ -41,6 +46,5 @@
             </section>
         </section>
     </section>
-    </form>
 </section>
 </section>
