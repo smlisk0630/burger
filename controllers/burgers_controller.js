@@ -8,12 +8,9 @@ const router = express.Router();
 
 //Routes
 router.get("/", (req, res) => {
+  // Get all burgers in db and send to index
   burger.selectAll((data) => {
-    const handlebarsObj = {
-      burger: data,
-    };
-    console.log(handlebarsObj);
-    res.render("index", handlebarsObj);
+    res.render("index", { burger: data });
   });
 });
 
@@ -23,19 +20,19 @@ router.post("/api/burgers", (req, res) => {
     [req.body.burger_name, req.body.devoured],
     (result) => {
       // Send back ID of new burger
-      res.render({ id: result.insertId });
+      res.redirect("/");
     }
   );
 });
 
 router.put("/api/burgers/:id", (req, res) => {
   const condition = `id = ${req.params.id}`;
-
+  console.log(req.body);
   console.log("condition", condition);
 
   burger.updateOne(
     {
-      devoured: res.body.devoured,
+      devoured: req.body.devoured,
     },
     condition,
     (result) => {
@@ -47,3 +44,5 @@ router.put("/api/burgers/:id", (req, res) => {
     }
   );
 });
+
+module.exports = router;
