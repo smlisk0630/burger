@@ -1,33 +1,81 @@
-const connection = require('./connection');
+const connection = require("./connection.js");
+
+// Helper function for SQL syntax to add question marks (?, ?, ?) in query
+const printQuestionMarks = (num) => {
+  const arrQMarks = [];
+
+  for (let i = 0; i < num; i++) {
+    arrQMarks.push("?");
+  }
+  return arrQMarks.toString();
+};
+
+// Helper function to convert object key/value pairs to SQL syntax
+const objToSql = (ob) => {
+  const arrKeys = [];
+
+  // Loop through the keys and push the key/value as a string int arr
+  for (const key in ob) {
+    let value = ob[key];
+    // Check to skip hidden properties
+    if (Object.hasOwnProperty.call(ob, key)) {
+      // If string with spaces, add quotations (Lana Del Grey => 'Lana Del Grey')
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = `'${value}'`;
+      }
+      arrKeys.push(`${key}=${value}`);
+    }
+  }
+
+  // Translate array of strings to a single comma-separated string
+  return arrKeys.toString();
+};
 
 const orm = {
-    selectAll(tableName, callback) {
-        connection.query('SELECT * FROM ??', [tableName], (err, result) => {
-            if (err) throw err;
+  selectAll(tableInput, callback) {
+    const queryString = `SELECT * FROM ${tableInput};`;
+    connection.query(queryString, (err, result) => {
+      if (err) {
+        throw err;
+      }
+      callback(result);
+    });
+  },
+  insertOne(table, cols, vals, callback) {
+    let queryString = `INSERT INTO ${table}`;
 
-            if (typeof callback === 'function') {
-                callback(result);
-            }    
-        });
-    },
-    insertOne(tableName, columnName, columnValues, callback) {
-        connection.query('INSERT INTO * SET ?', [tableName, columnName, columnValues], (err, result) => {
-            if (err) throw err;
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
 
-            if (typeof callback === 'function') {
-                callback(result);
-            }  
-        });
-    },
-    updateOne(tableName, columnName, columnValues, callback) {
-        connection.query('UPDATE * SET ??', [tableName, columnName, columnValues], (err, result) => {
-            if (err) throw err;
+    console.log(queryString);
 
-            if (typeof callback === 'function') {
-                callback(result);
-            }  
-        });
-    }
+    connection.query(queryString, vals, (err, result) => {
+      if (err) {
+        throw err;
+      }
+      callback(result);
+    });
+  },
+  updateOne(table, objColVals, condition, callback) {
+    let queryString = `UPDATE ${table}`;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
+    console.log(queryString);
+    connection.query(queryString, (err, result) => {
+      if (err) {
+        throw err;
+      }
+      callback(result);
+    });
+  },
 };
 
 module.exports = orm;

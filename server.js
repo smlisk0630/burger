@@ -12,31 +12,17 @@ const PORT = process.env.PORT || 8080;
 // Use the express.static middleware to serve static content for the app from the "public" directory in the application directory.
 app.use(express.static('public'));
 
-// Sets up the Express app to handle data parsing
+// Sets up the Express app to handle data parsing (parse application body as JSON)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-//Routes
-app.get('/', (req, res) => {
-    orm.selectAll('burger', function(result) {
-        res.render('list', { burger: result });
-    });
-});
+// Import routes and give the server access to them.
+const routes = require('./controllers/burgers_controller.js');
 
-app.post('/', (req, res) => {
-  orm.insertOne('burger', function(result) {
-      res.render('list', { burger: result });
-  });
-});
-
-app.put('/', (req, res) => {
-  orm.updateOne('burger', function(result) {
-      res.render('list', { burger: result });
-  });
-});
+app.use(routes);
 
 // Start our server so that it can begin listening to client requests.
 // Log (server-side) when our server has started
