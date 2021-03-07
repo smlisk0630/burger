@@ -5,8 +5,8 @@
 ![GitHub Top Language](https://img.shields.io/github/languages/top/smlisk0630/burger)
 ## Description
 Eat-Da-Burger! is a restaurant app that lets users input the names of burgers they'd like to eat.
-## Link to Deployed Application
-This application can be found at https://smlisk0630.github.io/burger/.
+## Links to Deployed Application
+This application can be found at at https://burger-database-app.herokuapp.com/ and https://smlisk0630.github.io/burger/.
 ## Table of Contents
 [Installation](https://smlisk0630.github.io/burger#installation)  
 [User Stories](https://smlisk0630.github.io/burger#stories)  
@@ -18,7 +18,7 @@ This application can be found at https://smlisk0630.github.io/burger/.
 npm install burger
 ```
 ## User Stories
-[placeholder]
+![Burger App Video](/public/assets/burger-app.gif)
 ## Usage
 Eat-Da-Burger! is a restaurant app that lets users input the names of burgers they'd like to eat.
 
